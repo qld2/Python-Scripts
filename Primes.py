@@ -27,7 +27,7 @@ def is_prime(x) :
 
 irrational = irrational*factor
 
-for x in range(1, 125) : 
+for x in range(1, 50) : 
     trun = math.floor(irrational) 
     if is_prime(trun) == 1 :
         print(trun)
