@@ -18,13 +18,16 @@ boards = str(argv[3]).split(' ')
 boards = list(map(int, boards))
 
 parts =  [[] * k]
+partitions = []
 times = []
+
 
 def guess() : 
     total = 0
     for i in range(0, n) :
         total += boards[i]
     avg = total / k
+	
     part = 0
     running_sum = 0
     for i in range(0, n) :
@@ -35,10 +38,10 @@ def guess() :
             parts[part].append(boards[i])
         else :
             parts.append([])
+            partitions.append(i)
             part += 1
             parts[part].append(boards[i])
             running_sum = 0
-
     return parts
 
 def calc_times() :
@@ -48,38 +51,12 @@ def calc_times() :
             sum += j
         times.append(sum)
 
-def optimize() :
-    overall-time = max(times)
-    overall-time-index = times.index(overall-time)
-    left = -1
-    right = -1
-    if overall-time-index != 0 :
-        left = overall-time-index - 1
-    if overall-time-index != len(times) - 1 :
-        right = overall-time-index + 1
 
-    if left == -1 & right == -1 :
-        return
-
-    if left == -1 :
-        
-            
-        
-    smaller = left
-    if times[right] < times[left] :
-        smaller = right
-    
-def decreases-time(current-max, adjacent) :
-    if adjacent < current-max :
-                
-
-    if adjacent > current-max :
-    
 guess()
 calc_times()
 
-print(parts)	
-print(times)
+print(parts)
+print(partitions)
 
 
            
