@@ -2,10 +2,32 @@
 #Specification can be found at:
 #https://practice.geeksforgeeks.org/problems/the-painters-partition-problem/0
 
-#code
-from sys import argv
+#THIS IMPLEMENTATION OF A SOLUTION FAILS BECAUSE THE RECURSION TAKES FOREVER
+#FOR LARGE TEST CASES AND THEREFORE FAILS THE AUTOGRADER. That being said i
+#left this on here because filler is one of the coolest methods ive ever written.
+#This still works for small test cases, like n < 9
 
-T = int(argv[1])
+#code
+T = int(input())
+nP = []
+nB = []
+B = []
+
+for t in range(0, T) :
+    inp = str(input()).split(' ')
+
+    nP.append(int(inp[0]))
+
+    nB.append(int(inp[1]))
+
+    boards = str(input())
+    parsed = []
+    
+    for i in boards :
+        if (str(i) != '') & (i != ' ') :
+            parsed.append(int(i))
+    
+    B.append(parsed)
     
 def get_time(boards, partitions) :
     max = 0
@@ -21,9 +43,11 @@ def get_time(boards, partitions) :
             if j < len(partitions)  - 1 :
                 j += 1
         sum += boards[i]    
-    return max
-    
-possiblePartitions = []    
+        
+    if sum > max :
+        max = sum
+        
+    return max    
     
 def filler(arr, iterator, t, n, k) :
     
@@ -35,29 +59,20 @@ def filler(arr, iterator, t, n, k) :
             filler(arr , i, t + 1, n, k)
     
 for t in range(0,T) :
-
-    inp = str(argv[2]).split(' ')
-
-    numOfPainters = int(inp[0])
-
-    numOfBoards = int(inp[1])
-
-    boards = str(argv[3]).split(' ')
-    boards = list(map(int, boards))
+    numOfPainters = nP[t]
+    numOfBoards = nB[t]
+    boards = B[t]
     
+    possiblePartitions = []
     filler([0] * (numOfPainters - 1), -1, 2, numOfPainters - 2, numOfBoards - 2)
     
-    min = 0
-    
-    print(get_time(boards, [1, 3]))
-    
+    min = get_time(boards, possiblePartitions[0])
+        
     for i in range(0, len(possiblePartitions)) :
-        #time = get_time(boards, i)
-        #if time < min :
-        #    min = time
-        print(possiblePartitions[i])
-        print(get_time(boards, possiblePartitions[i]))    
-    #print(min)
+        time = get_time(boards, possiblePartitions[i])
+        if time < min :
+            min = time
+    print(min)
 
     
 
